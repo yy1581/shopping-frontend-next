@@ -1,0 +1,112 @@
+.productForm {
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formTitle {
+  margin: 0 0 1rem;
+  font-size: 1.75rem;
+  text-align: center;
+  color: #333333;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-weight: 600;
+  color: #555555;
+}
+
+.productForm input,
+.productForm select,
+.productForm textarea {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #d0d7de;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  color: #333333;
+  background-color: #fff;
+}
+
+.productForm input::placeholder,
+.productForm textarea::placeholder {
+  color: #a0a0a0;
+}
+
+.productForm input:focus,
+.productForm select:focus,
+.productForm textarea:focus {
+  outline: 0;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.25);
+}
+
+.formRow {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.formRow .formGroup {
+  flex: 1;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.cancelButton {
+  background-color: #f8f9fa;
+  color: #495057;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #d0d7de;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.cancelButton:hover {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+}
+
+.submitButton {
+  background-color: #1976d2;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+  background-color: #1565c0;
+}
+
+.errorMessage {
+  color: #e53935;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  text-align: center;
+}

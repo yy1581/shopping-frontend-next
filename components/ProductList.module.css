@@ -1,0 +1,116 @@
+.productList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.productItem {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 6px 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.productItem:hover {
+  border-color: #1976d2;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.1);
+}
+
+.productItemLink {
+  text-decoration: none;
+  color: inherit;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.productItemLink .productName {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.productItem .productCategory {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1976d2;
+  background-color: #e3f2fd;
+  padding: 3px 8px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  width: 90px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.productItem .productPrice {
+  font-weight: bold;
+  color: #333;
+  font-size: 12px;
+  width: 100px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.productItem .productDate {
+  font-size: 13px;
+  color: #666;
+  width: 90px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.productItem .productActions {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.productEdit,
+.productDelete {
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 3px 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  min-width: 60px;
+  text-align: center;
+}
+
+.productEdit {
+  color: #4caf50;
+  border-color: #4caf50;
+}
+.productEdit:hover {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.productDelete {
+  color: #e53935;
+  border-color: #e53935;
+}
+.productDelete:hover {
+  background-color: #e53935;
+  color: #fff;
+}
+
+.productFormItem {
+  margin-bottom: 20px;
+}

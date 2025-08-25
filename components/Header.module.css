@@ -1,0 +1,59 @@
+.appHeader {
+  background-color: #ffffff;
+  padding: 16px 0;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 24px;
+}
+
+.headerContent {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.headerTitle {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #1976d2;
+  cursor: pointer;
+}
+
+.logoLink {
+  text-decoration: none;
+}
+
+.headerNav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.headerNavLink {
+  text-decoration: none;
+  color: #555555;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-bottom-color 0.2s;
+}
+
+.headerNavLink:hover {
+  color: #1976d2;
+}
+
+.headerNavLink.active {
+  color: #1976d2;
+  border-bottom-color: #1976d2;
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import personIcon from "@/lib/assets/person.png";
 import styles from "./UserMenu.module.css";
@@ -32,7 +33,7 @@ function UserMenu() {
         aria-haspopup="true"
         aria-expanded={isOpen}
       >
-        <img src={personIcon} alt="유저 메뉴" />
+        <Image src={personIcon} alt="유저 메뉴" />
       </button>
       <ul className={`${styles.popup} ${isOpen ? styles.open : ""}`}>
         <li>

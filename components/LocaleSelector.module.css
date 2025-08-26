@@ -1,0 +1,26 @@
+.localeDropdownButton {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  color: #333; /* 헤더의 다른 링크들과 색상을 맞춰주세요. */
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  width: auto; /* 내용에 맞게 너비 자동 조절 */
+}
+
+.localeDropdownButton:hover {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.05
+  ); /* 헤더의 다른 링크들과 hover 효과를 맞춰주세요. */
+  color: #111;
+}
+
+/* 커스텀 버튼 내부의 화살표 스타일 */
+.localeDropdownButton > span:last-child {
+  margin-left: 4px;
+}

@@ -4,7 +4,7 @@ import ProductDetailsClient from "./ProductDetailsClient";
 import "./ProductPage.css";
 
 export default async function ProductPage({ params }) {
-  const { id } = params;
+  const { id } = await params;
   const product = await getProduct(id);
 
   if (!product) {

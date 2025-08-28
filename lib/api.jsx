@@ -1,5 +1,18 @@
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+async function apiFetch(endpoint, options = {}) {
+  const response = await fetch(`${BACKEND_URL}${endpoint}`, options);
+  if (!response.ok) {
+    throw new Error("API 요청에 실패했습니다.");
+  }
+  try {
+    return await response.json();
+  } catch (error) {
+    // JSON 파싱에 실패한 경우 (예: body가 없는 204 응답)
+    return null;
+  }
+}
+
 export async function getProducts({
   order = "newest",
   offset = 0,
@@ -7,61 +20,47 @@ export async function getProducts({
   search = "",
 }) {
   const query = `order=${order}&offset=${offset}&limit=${limit}&search=${search}`;
-  const response = await fetch(`${BACKEND_URL}/products?${query}`);
-  if (!response.ok) {
-    throw new Error("상품을 불러오는데 실패했습니다.");
-  }
-  const body = await response.json();
-  return body;
+  // 60초 동안 캐시 유지 (ISR과 유사)
+  return apiFetch(`/products?${query}`, {
+    next: {
+      revalidate: 60,
+    },
+  });
 }
 
 export async function getProduct(id) {
-  const response = await fetch(`${BACKEND_URL}/products/${id}`);
-  if (!response.ok) {
-    throw new Error("상품을 불러오는데 실패했습니다.");
-  }
-  const body = await response.json();
-  return body;
+  // 60초 동안 캐시 유지 (ISR과 유사)
+  return apiFetch(`/products/${id}`, {
+    next: {
+      revalidate: 60,
+    },
+  });
 }
 
 export async function createProduct(productData) {
-  const response = await fetch(`${BACKEND_URL}/products`, {
+  return apiFetch("/products", {
     method: "POST",
     body: JSON.stringify(productData),
     headers: {
       "Content-Type": "application/json",
     },
   });
-  if (!response.ok) {
-    throw new Error("상품을 생성하는데 실패했습니다.");
-  }
-  const body = await response.json();
-  return body;
 }
 
 export async function updateProduct(id, productData) {
   const { name, description, price, stock, category } = productData;
   const updatedData = { name, description, price, stock, category };
-  const response = await fetch(`${BACKEND_URL}/products/${id}`, {
+  return apiFetch(`/products/${id}`, {
     method: "PATCH",
     body: JSON.stringify(updatedData),
     headers: {
       "Content-Type": "application/json",
     },
   });
-  if (!response.ok) {
-    throw new Error("상품을 수정하는데 실패했습니다.");
-  }
-  const body = await response.json();
-  return body;
 }
 
 export async function deleteProduct(id) {
-  const response = await fetch(`${BACKEND_URL}/products/${id}`, {
+  return apiFetch(`/products/${id}`, {
     method: "DELETE",
   });
-  if (!response.ok) {
-    throw new Error("상품을 삭제하는데 실패했습니다.");
-  }
-  return true;
 }

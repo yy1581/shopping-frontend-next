@@ -4,6 +4,7 @@ import { useState } from "react";
 import styles from "./ProductForm.module.css";
 import useAsync from "@/hooks/useAsync";
 import useTranslate from "@/hooks/useTranslate";
+import Warn from "./Warn";
 
 const INITIAL_VALUES = {
   name: "",
@@ -150,7 +151,11 @@ function ProductForm({
         </button>
       </div>
       {submitError?.message && (
-        <div className={styles.errorMessage}>{submitError.message}</div>
+        <Warn
+          className={styles.errorMessage}
+          title="에러발생"
+          description={submitError.message}
+        />
       )}
     </form>
   );

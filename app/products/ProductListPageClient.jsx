@@ -150,11 +150,14 @@ function ProductListPageClient({ initialProducts, searchParams, limit }) {
           </button>
         )}
 
-        {productsLoadingError?.message && (
-          <span className={styles.error}>{productsLoadingError.message}</span>
-        )}
-        {deletingError?.message && (
-          <span className={styles.error}>{deletingError.message}</span>
+        {(productsLoadingError || deletingError) && (
+          <Warn
+            className={styles.error}
+            title="에러 발생"
+            description={
+              productsLoadingError?.message || deletingError?.message
+            }
+          />
         )}
       </div>
     </div>

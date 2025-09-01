@@ -1,16 +1,33 @@
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 async function apiFetch(endpoint, options = {}) {
-  const response = await fetch(`${BACKEND_URL}${endpoint}`, options);
-  if (!response.ok) {
-    throw new Error("API 요청에 실패했습니다.");
-  }
+  let response;
   try {
-    return await response.json();
+    response = await fetch(`${BACKEND_URL}${endpoint}`, options);
   } catch (error) {
-    // JSON 파싱에 실패한 경우 (예: body가 없는 204 응답)
+    // 네트워크 오류 등 fetch 자체가 실패한 경우
+    console.error("API Fetch Error:", error);
+    throw new Error(
+      "API 서버에 연결할 수 없습니다. 네트워크 상태를 확인해주세요."
+    );
+  }
+
+  // 404 Not Found 응답을 받으면 null을 반환하여, 호출하는 쪽에서 notFound()를 실행하도록 유도합니다.
+  if (response.status === 404) {
     return null;
   }
+
+  if (!response.ok) {
+    const errorBody = await response.json().catch(() => null); // 에러 응답 body 파싱 시도
+    const errorMessage =
+      errorBody?.message ||
+      `API Error: ${response.status} ${response.statusText}`;
+    throw new Error(errorMessage);
+  }
+
+  // 204 No Content와 같이 body가 없는 성공 응답은 null을 반환합니다.
+  if (response.status === 204) return null;
+  return response.json().catch(() => null); // JSON 파싱 실패 시(body가 비었을 경우 등) null 반환
 }
 
 export async function getProducts({

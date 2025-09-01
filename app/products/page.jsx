@@ -1,13 +1,14 @@
 import { getProducts } from "@/lib/api";
 import ProductListPageClient from "./ProductListPageClient";
+import { notFound } from "next/navigation";
 
 // LIMIT개씩 불러오기
 const LIMIT = 10;
 
 export default async function ProductListPage({ searchParams }) {
-  const params = await searchParams;
-  const order = params.order || "newest";
-  const keyword = params.keyword || "";
+  const resolvedSearchParams = await searchParams;
+  const order = resolvedSearchParams.order || "newest";
+  const keyword = resolvedSearchParams.keyword || "";
 
   // 서버에서 초기 데이터 가져오기
   const initialProducts = await getProducts({
@@ -18,8 +19,8 @@ export default async function ProductListPage({ searchParams }) {
 
   return (
     <ProductListPageClient
-      initialProducts={initialProducts ?? []}
-      searchParams={params}
+      initialProducts={initialProducts}
+      searchParams={resolvedSearchParams}
       limit={LIMIT}
     />
   );

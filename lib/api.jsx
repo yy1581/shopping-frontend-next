@@ -1,33 +1,52 @@
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+import axios from "@/lib/axios";
 
 async function apiFetch(endpoint, options = {}) {
-  let response;
+  const { method = "GET", body, ...restOptions } = options;
+  const config = {
+    ...restOptions,
+    headers: {
+      "Content-Type": "application/json",
+      ...options.headers,
+    },
+  };
+
   try {
-    response = await fetch(`${BACKEND_URL}${endpoint}`, options);
+    let response;
+    switch (method.toUpperCase()) {
+      case "POST":
+        response = await axios.post(endpoint, body, config);
+        break;
+      case "PATCH":
+        response = await axios.patch(endpoint, body, config);
+        break;
+      case "DELETE":
+        response = await axios.delete(endpoint, config);
+        break;
+      case "GET":
+      default:
+        response = await axios.get(endpoint, config);
+        break;
+    }
+
+    if (response.status === 204) return null;
+    return response.data;
   } catch (error) {
-    // 네트워크 오류 등 fetch 자체가 실패한 경우
-    console.error("API Fetch Error:", error);
-    throw new Error(
-      "API 서버에 연결할 수 없습니다. 네트워크 상태를 확인해주세요."
-    );
+    if (error.response) {
+      if (error.response.status === 404) {
+        return null;
+      }
+      const errorMessage =
+        error.response.data?.message ||
+        `API Error: ${error.response.status} ${error.response.statusText}`;
+      throw new Error(errorMessage);
+    } else {
+      // 네트워크 오류 등 axios 요청 자체가 실패한 경우
+      console.error("API Fetch Error:", error);
+      throw new Error(
+        "API 서버에 연결할 수 없습니다. 네트워크 상태를 확인해주세요."
+      );
+    }
   }
-
-  // 404 Not Found 응답을 받으면 null을 반환하여, 호출하는 쪽에서 notFound()를 실행하도록 유도합니다.
-  if (response.status === 404) {
-    return null;
-  }
-
-  if (!response.ok) {
-    const errorBody = await response.json().catch(() => null); // 에러 응답 body 파싱 시도
-    const errorMessage =
-      errorBody?.message ||
-      `API Error: ${response.status} ${response.statusText}`;
-    throw new Error(errorMessage);
-  }
-
-  // 204 No Content와 같이 body가 없는 성공 응답은 null을 반환합니다.
-  if (response.status === 204) return null;
-  return response.json().catch(() => null); // JSON 파싱 실패 시(body가 비었을 경우 등) null 반환
 }
 
 export async function getProducts({
@@ -57,10 +76,7 @@ export async function getProduct(id) {
 export async function createProduct(productData) {
   return apiFetch("/products", {
     method: "POST",
-    body: JSON.stringify(productData),
-    headers: {
-      "Content-Type": "application/json",
-    },
+    body: productData,
   });
 }
 
@@ -69,10 +85,7 @@ export async function updateProduct(id, productData) {
   const updatedData = { name, description, price, stock, category };
   return apiFetch(`/products/${id}`, {
     method: "PATCH",
-    body: JSON.stringify(updatedData),
-    headers: {
-      "Content-Type": "application/json",
-    },
+    body: updatedData,
   });
 }
 

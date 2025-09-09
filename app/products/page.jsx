@@ -1,6 +1,5 @@
 import { getProducts } from "@/lib/api";
 import ProductListPageClient from "./ProductListPageClient";
-import { notFound } from "next/navigation";
 
 // LIMIT개씩 불러오기
 const LIMIT = 10;

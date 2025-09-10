@@ -27,12 +27,12 @@ function Header() {
             {t("products")}
           </Link>
           <Link
-            href="/wishlist"
+            href="/mypage"
             className={`${styles.headerNavLink} ${
-              pathname === "/wishlist" ? styles.active : ""
+              pathname === "/mypage" ? styles.active : ""
             }`}
           >
-            {t("my wishlist")}
+            {t("my page")}
           </Link>
           <UserMenu />
           <LocaleSelector />

@@ -2,9 +2,16 @@
 
 import useTranslate from "@/hooks/useTranslate";
 import "./WishListPage.css";
+import axios from "@/lib/axios";
 
 function WishListPage() {
   const t = useTranslate();
+  const [user, setUser] = useState(null);
+  const [products, setProducts] = useState([]);
+
+  async function getUser() {
+    const res = await axios.get;
+  }
 
   return (
     <div className="App">

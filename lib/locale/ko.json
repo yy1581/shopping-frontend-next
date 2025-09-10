@@ -40,5 +40,7 @@
   "product description placeholder": "상품 설명을 입력하세요",
   "product price placeholder": "가격을 입력하세요",
   "product stock placeholder": "재고 수량을 입력하세요",
-  "edit product": "상품 수정"
+  "edit product": "상품 수정",
+  "my page": "마이페이지",
+  "my cart": "장바구니"
 }

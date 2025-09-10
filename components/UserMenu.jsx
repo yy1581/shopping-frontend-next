@@ -37,7 +37,10 @@ function UserMenu() {
       </button>
       <ul className={`${styles.popup} ${isOpen ? styles.open : ""}`}>
         <li>
-          <Link href="/wishlist">위시리스트</Link>
+          <Link href="/mypage">마이페이지</Link>
+        </li>
+        <li>
+          <Link href="/cart">장바구니</Link>
         </li>
         <li>
           <Link href="/signup">회원가입</Link>

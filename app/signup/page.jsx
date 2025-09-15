@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import styles from "./RegisterPage.module.css";
+import styles from "./SignupPage.module.css";
 import { useState } from "react";
 
-export default function RegisterPage() {
+export default function SignupPage() {
   const [values, setValues] = useState({
     email: "",
     firstName: "",

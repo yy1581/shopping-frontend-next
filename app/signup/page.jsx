@@ -3,8 +3,11 @@
 import Link from "next/link";
 import styles from "./SignupPage.module.css";
 import { useState } from "react";
+import { signup } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
+  const router = useRouter();
   const [values, setValues] = useState({
     email: "",
     firstName: "",
@@ -14,6 +17,7 @@ export default function SignupPage() {
     address: "",
     subscribe: false,
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -23,13 +27,23 @@ export default function SignupPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
     if (values.password !== values.passwordRepeat) {
       alert("비밀번호가 일치하지 않습니다.");
       return;
     }
-    const { email, firstName, lastName, password, address } = values;
-    // 여기에 회원가입 API 호출 로직 추가
+    setIsSubmitting(true);
+    try {
+      const { email, firstName, lastName, password, address } = values;
+      await signup({ email, firstName, lastName, password, address, userPreferences: values.subscribe });
+      alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
+      router.push("/login");
+    } catch (error) {
+      alert(`회원가입에 실패했습니다: ${error.message}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -110,7 +124,7 @@ export default function SignupPage() {
           />
           이메일 수신에 동의합니다.
         </label>
-        <button type="submit" className={styles.submitButton}>
+        <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
           회원가입
         </button>
       </form>

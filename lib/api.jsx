@@ -49,6 +49,8 @@ async function apiFetch(endpoint, options = {}) {
   }
 }
 
+/* Product APIs */
+
 export async function getProducts({
   order = "newest",
   offset = 0,
@@ -92,5 +94,14 @@ export async function updateProduct(id, productData) {
 export async function deleteProduct(id) {
   return apiFetch(`/products/${id}`, {
     method: "DELETE",
+  });
+}
+
+/* Auth APIs */
+
+export async function signup(userData) {
+  return apiFetch("/auth/signup", {
+    method: "POST",
+    body: userData,
   });
 }

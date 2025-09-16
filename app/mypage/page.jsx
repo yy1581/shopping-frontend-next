@@ -3,6 +3,7 @@
 import useTranslate from "@/hooks/useTranslate";
 import "./WishListPage.css";
 import axios from "@/lib/axios";
+import { useState } from "react";
 
 function WishListPage() {
   const t = useTranslate();

@@ -108,7 +108,6 @@ export default function SignupPage() {
             checked={values.subscribe}
             onChange={handleChange}
           />
-          <span className={styles.checkmark}></span>
           이메일 수신에 동의합니다.
         </label>
         <button type="submit" className={styles.submitButton}>
